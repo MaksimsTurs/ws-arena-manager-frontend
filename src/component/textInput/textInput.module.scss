@@ -1,0 +1,18 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.input_label_container {
+	display: inline-grid;
+
+	.input_label_text {
+		color: white;
+    margin-bottom: 0.5rem;
+  }
+
+	.label_input {
+		height: $height-input;
+		border-radius: $border-radius-container;
+		padding: 0.5rem;
+		background-color: white;
+	}
+}

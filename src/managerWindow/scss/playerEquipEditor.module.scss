@@ -1,0 +1,11 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_data_body {
+	display: flex;
+}
+
+.equip_data_body_center {
+	display: flex;
+	justify-content: center;
+}

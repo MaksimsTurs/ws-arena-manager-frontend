@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300');
+
+* {
+	// font-family: 'Roboto', sans-serif;
+	font-family: 'Fira Code', monospace;
+	user-select: none;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	position: relative;
+	background-image: url('../background.png');
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(103, 103, 208);
+	border-radius: 3px;
+}
+
+body,
+html {
+	height: 100%;
+}
+
+ul {
+	list-style: none;
+}
+
+input,
+button {
+	font-family: inherit;
+	background-color: transparent;
+}
+
+input[type='radio'] {
+	display: none;
+}
+
+input[type='checkbox'] {
+	appearance: none;
+	position: absolute;
+	opacity: 0;
+	height: 0;
+	width: 0;
+	cursor: pointer;
+}
+
+button:disabled {
+	color: white;
+}
+
+button {
+	cursor: pointer;
+}
+
+input:focus,
+select:focus {
+	outline: none;
+}
+
+a {
+	color: black;
+	display: block;
+}
+
+a,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 400;
+}

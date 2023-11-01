@@ -1,0 +1,45 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.window_container {
+	@include flexCenterCenter();
+	flex-grow: 1;
+	backdrop-filter: blur(3px);
+
+	.window_body {
+		border-radius: $border-radius-container;
+		position: relative;
+		height: fit-content;
+		width: fit-content;
+		background-color: rgba(148, 148, 148, 0.8);
+		border: 1px solid silver;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+			rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+		.window_body_header {
+			border-top-right-radius: $border-radius-container;
+			border-top-left-radius: $border-radius-container;
+			overflow: hidden;
+			display: flex;
+			justify-content: space-between;
+			background-color: rgb(103, 103, 208);
+
+			.window_body_tab {
+				transition: all $transition-fast-ease;
+				padding: 0.75rem 1rem;
+				width: 100%;
+				color: white;
+
+				&:hover {
+					transition: all $transition-fast-ease;
+					background-color: rgb(72, 72, 174);
+				}
+			}
+
+			.window_body_tab_selected {
+				transition: all $transition-fast-ease;
+				background-color: rgb(82, 82, 189);
+			}
+		}
+	}
+}

@@ -1,0 +1,66 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.select_title {
+	color: white;
+	margin-bottom: 0.5rem;
+}
+
+.select_selected_class_container {
+	border-radius: $border-radius-container;
+	height: $height-input;
+	position: relative;
+	background-color: white;
+	padding: 0.4rem 0.7rem;
+	width: 13rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+
+	img {
+		width: 2rem;
+		height: 2rem;
+		margin-left: 1rem;
+		pointer-events: none;
+	}
+
+	p {
+		pointer-events: none;
+	}
+
+	.select_custom_dropdown {
+		position: absolute;
+		top: 110%;
+		left: 0;
+		z-index: 2;
+		border-radius: $border-radius-container;
+		width: 14rem;
+		overflow-y: scroll;
+		background-color: white;
+
+		.select_option {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0.5rem 1rem;
+			transition: all $transition-fast-ease;
+
+			&:hover {
+				background-color: rgb(215, 215, 215);
+				transition: all $transition-fast-ease;
+			}
+
+			img {
+				margin-left: 1rem;
+				width: 2rem;
+				height: 2rem;
+			}
+		}
+	}
+
+	.select_hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

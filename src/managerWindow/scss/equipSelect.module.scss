@@ -1,0 +1,23 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_select_container {
+	position: relative;
+	cursor: pointer;
+
+	img {
+		pointer-events: none;
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.equip_select_background {
+		border-radius: 2px;
+		position: absolute;
+    z-index: 1;
+    top: 9.5px;
+    left: 10px;
+    width: 2.29rem;
+    height: 2.29rem;
+	}
+}

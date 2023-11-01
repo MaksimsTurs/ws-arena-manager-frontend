@@ -1,0 +1,7 @@
+@import './variabel.scss';
+
+@mixin flexCenterCenter() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
