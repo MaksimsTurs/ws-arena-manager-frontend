@@ -27,6 +27,7 @@ const AddPlayer = () => {
 	const dispatch = useDispatch<AppDispatch>()
 
 	console.log(data)
+	
 
 	const { guildMembers, memberAdded } = useSelector<
 		RootState,
