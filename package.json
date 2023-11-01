@@ -14,6 +14,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.8.10",
+		"@types/react-dom": "^18.2.14",
 		"cssnano": "^6.0.1",
 		"postcss": "^8.4.31",
 		"postcss-combine-duplicated-selectors": "^10.0.3",

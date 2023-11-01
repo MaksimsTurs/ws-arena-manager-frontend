@@ -1,4 +1,4 @@
-import style from '../scss/playerList.module.scss'
+// import style from '../scss/playerList.module.scss'
 
 const PlayerList = () => {
   return(
