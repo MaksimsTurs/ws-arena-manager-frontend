@@ -13,12 +13,8 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "^6.1.4",
-		"@testing-library/react": "^14.0.0",
-		"@testing-library/user-event": "^14.5.1",
 		"@types/node": "^20.8.10",
 		"cssnano": "^6.0.1",
-		"jsdom": "^22.1.0",
 		"postcss": "^8.4.31",
 		"postcss-combine-duplicated-selectors": "^10.0.3",
 		"postcss-preset-env": "^9.3.0",
