@@ -6,25 +6,23 @@
 }
 
 .equip_list_container {
+	@include displayFlex(normal, start, column);
 	border-radius: $border-radius-container;
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	z-index: 10;
-	display: flex;
-	flex-direction: column;
 	left: 0;
 	top: 0;
 	overflow: hidden;
 	background: rgba(0, 0, 0, 0.8);
 
 	.equip_list_item {
+		@include displayFlex(center);
 		transition: all $transition-fast-ease;
-		display: flex;
-		align-items: center;
+		border-bottom: $border-root;
 		position: relative;
 		padding: 1rem;
-		border-bottom: 1px solid silver;
 		cursor: pointer;
 
 		.equip_item_icon {
@@ -34,15 +32,6 @@
 			width: 2.6rem;
 			height: 2.6rem;
 			border-radius: 2px;
-		}
-
-		.equip_item_lvl {
-			position: absolute;
-			color: yellow;
-			-webkit-text-stroke: 1px yellow;
-			top: 26px;
-			left: 14px;
-			z-index: 4;
 		}
 
 		&:hover {
@@ -71,13 +60,10 @@
 	}
 
 	.equip_data_container {
+		@include displayFlex(center, space-between, column);
 		padding: 1rem;
-    color: white;
-    display: flex;
-    flex-direction: column;
-		justify-content: space-between;
+		color: white;
 		flex-grow: 1;
-    align-items: center;
 
 		.equip_data_parameters {
 			margin-top: 1rem;
@@ -85,20 +71,19 @@
 
 		.equip_equip_button {
 			border-radius: $border-radius-container;
+			transition: all $transition-fast-ease;
+			background-color: $background-color-root;
 			color: white;
 			padding: 0.6rem 4rem;
-			background-color: rgb(103, 103, 208);
-			transition: all $transition-fast-ease;
 
 			&:hover {
+				background-color: $background-color-root-darker;
 				transition: all $transition-fast-ease;
-				background-color: rgb(72, 72, 174);
 			}
 		}
 
 		.equip_data_main_data {
-			display: flex;
-			align-items: center;
+			@include displayFlex(center);
 
 			img {
 				width: 3rem;

@@ -1,19 +1,18 @@
 import {
-	EquipParameters,
 	Amulet,
 	Body,
 	Boots,
 	Cloak,
 	Gloves,
-	Weapon,
-	Sash,
-	Ring,
 	Head,
-} from '@/managerWindow/data/data.type'
+	Ring,
+	Sash,
+	Weapon,
+} from '@/managerWindow/tab/addPlayer/data/type/equipParameters.type'
+import { GameParameters } from '@/managerWindow/tab/addPlayer/data/type/gameParameters.type'
 
 export type GuildInitialState = {
-  guildMembers: PlayerInformation[]
-  memberAdded: boolean
+	guildMembers: PlayerInformation[]
 }
 
 export type PlayerInformation = {
@@ -24,7 +23,7 @@ export type PlayerInformation = {
 	role: string
 	level: number
 	equip: PlayerEquip
-	playerParameters: Partial<EquipParameters>
+	playerParameters: Partial<GameParameters>
 }
 
 export type PlayerEquip = {

@@ -1,11 +1,9 @@
-import { GameClasses } from '@/managerWindow/data/data.type'
 import { Dispatch, SetStateAction } from 'react'
 
-export type SelectInputProps = {
+export type SelectInputProps<T> = {
+	setOption: Dispatch<SetStateAction<T>>
+	options: T[]
+	selectedOption: T
 	inputID: string
 	height?: string
-	isClassSelect?: boolean
-	options: GameClasses[]
-	setSelection: Dispatch<SetStateAction<GameClasses>>
-	selectedOption: GameClasses
 }

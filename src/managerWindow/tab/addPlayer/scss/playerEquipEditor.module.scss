@@ -6,6 +6,5 @@
 }
 
 .equip_data_body_center {
-	display: flex;
-	justify-content: center;
+	@include displayFlex(normal, center)
 }

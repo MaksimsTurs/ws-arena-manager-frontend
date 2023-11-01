@@ -2,7 +2,7 @@
 @import '@/style/mixin.scss';
 
 .window_container {
-	@include flexCenterCenter();
+	@include displayFlex(center, center);
 	flex-grow: 1;
 	backdrop-filter: blur(3px);
 

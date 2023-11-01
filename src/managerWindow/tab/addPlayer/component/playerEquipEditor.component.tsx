@@ -1,17 +1,20 @@
-import { PlayerEquipEditorProps } from '../managerWindow.type'
+//@ts-nocheck
 import style from '../scss/playerEquipEditor.module.scss'
 
-import slotCloak from '../editorIMG/slots/slots-cloak.png'
-import slotHead from '../editorIMG/slots/slots-head.png'
-import slotAmulet from '../editorIMG/slots/slots-amulet.png'
-import slotBody from '../editorIMG/slots/slots-body.png'
-import slotGloves from '../editorIMG/slots/slots-glove.png'
-import slotWeapon from '../editorIMG/slots/slots-weapon.png'
-import slotBoots from '../editorIMG/slots/slots-boots.png'
-import slotSash from '../editorIMG/slots/slots-sash.png'
-import slotRing from '../editorIMG/slots/slots-ring.png'
+import { PlayerEquipEditorProps } from '../addPlayer.type'
 
-import EquipSelect from './equipSelect.component'
+import { Fragment, useState } from 'react'
+
+import slotCloak from '../img/slotPlaceholder/slots-cloak.png?format=webp&prest=thumbnail'
+import slotHead from '../img/slotPlaceholder/slots-head.png?format=webp&prest=thumbnail'
+import slotAmulet from '../img/slotPlaceholder/slots-amulet.png?format=webp&prest=thumbnail'
+import slotBody from '../img/slotPlaceholder/slots-body.png?format=webp&prest=thumbnail'
+import slotGloves from '../img/slotPlaceholder/slots-glove.png?format=webp&prest=thumbnail'
+import slotWeapon from '../img/slotPlaceholder/slots-weapon.png?format=webp&prest=thumbnail'
+import slotBoots from '../img/slotPlaceholder/slots-boots.png?format=webp&prest=thumbnail'
+import slotSash from '../img/slotPlaceholder/slots-sash.png?format=webp&prest=thumbnail'
+import slotRing from '../img/slotPlaceholder/slots-ring.png?format=webp&prest=thumbnail'
+
 import {
 	amuletEquip,
 	cloakEquip,
@@ -23,15 +26,11 @@ import {
 	sashEquip,
 	weaponEquip,
 } from '../data/equip.data'
-import EquipList from './equipList.component'
-import { Fragment, useState } from 'react'
-import { EquipTypes } from '../data/data.type'
 
-const PlayerEquipEditor = ({
-	setPlayerEquip,
-	playerEquip,
-}: PlayerEquipEditorProps) => {
-	const [equipType, setEquipType] = useState<EquipTypes>('body')
+import EquipListContainer from './equipListContainer.component'
+import EquipSelect from './equipSelect.component'
+
+const PlayerEquipEditor = ({ playerEquip }: PlayerEquipEditorProps) => {
 	const [isEquipListVisible, setEquipListVisible] = useState<boolean>(false)
 
 	return (
@@ -39,19 +38,16 @@ const PlayerEquipEditor = ({
 			<div className={style.equip_data_body}>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='cloak'
 					backgroundImg={playerEquip?.cloak?.icon! || slotCloak}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='head'
 					backgroundImg={playerEquip?.head?.icon! || slotHead}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='amulet'
 					backgroundImg={playerEquip?.amulet?.icon! || slotAmulet}
 				/>
@@ -59,19 +55,16 @@ const PlayerEquipEditor = ({
 			<div className={style.equip_data_body}>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='weapon'
 					backgroundImg={playerEquip?.weapon?.icon! || slotWeapon}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='body'
 					backgroundImg={playerEquip?.body?.icon! || slotBody}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='gloves'
 					backgroundImg={playerEquip?.gloves?.icon! || slotGloves}
 				/>
@@ -79,7 +72,6 @@ const PlayerEquipEditor = ({
 			<div className={style.equip_data_body_center}>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='sash'
 					backgroundImg={playerEquip?.sash?.icon! || slotSash}
 				/>
@@ -87,27 +79,23 @@ const PlayerEquipEditor = ({
 			<div className={style.equip_data_body}>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='rightRing'
 					backgroundImg={playerEquip?.rightRing?.icon! || slotRing}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='boots'
 					backgroundImg={playerEquip?.boots?.icon! || slotBoots}
 				/>
 				<EquipSelect
 					setEquipListVisible={setEquipListVisible}
-					setEquipType={setEquipType}
 					equipType='leftRing'
 					backgroundImg={playerEquip?.leftRing?.icon! || slotRing}
 				/>
 			</div>
-			<EquipList
-				isVisible={isEquipListVisible}
+			<EquipListContainer
+				isEquipListVisible={isEquipListVisible}
 				setEquipListVisible={setEquipListVisible}
-				setPlayerEquip={setPlayerEquip}
 				equipData={[
 					...cloakEquip,
 					...headEquip,
@@ -119,7 +107,6 @@ const PlayerEquipEditor = ({
 					...gloveEquip,
 					...amuletEquip,
 				]}
-				equipType={equipType}
 			/>
 		</Fragment>
 	)

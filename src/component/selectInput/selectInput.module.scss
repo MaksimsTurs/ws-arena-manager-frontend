@@ -2,26 +2,24 @@
 @import '@/style/mixin.scss';
 
 .select_title {
-	color: white;
 	margin-bottom: 0.5rem;
+	color: white;
 }
 
-.select_selected_class_container {
+.select_container {
+	@include displayFlex(center, space-between);
 	border-radius: $border-radius-container;
 	height: $height-input;
 	position: relative;
 	background-color: white;
 	padding: 0.4rem 0.7rem;
 	width: 13rem;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
 	cursor: pointer;
 
 	img {
+		border-radius: 2px;
 		width: 2rem;
 		height: 2rem;
-		margin-left: 1rem;
 		pointer-events: none;
 	}
 
@@ -30,31 +28,31 @@
 	}
 
 	.select_custom_dropdown {
+		border-radius: $border-radius-container;
 		position: absolute;
 		top: 110%;
 		left: 0;
 		z-index: 2;
-		border-radius: $border-radius-container;
 		width: 14rem;
 		overflow-y: scroll;
 		background-color: white;
 
 		.select_option {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+			@include displayFlex(center, space-between);
+			transition: all $transition-very-fast-ease;
 			padding: 0.5rem 1rem;
-			transition: all $transition-fast-ease;
-
+			
 			&:hover {
-				background-color: rgb(215, 215, 215);
-				transition: all $transition-fast-ease;
+				color: white;
+				background-color: $background-color-root-light;
+				transition: all $transition-very-fast-ease;
 			}
 
 			img {
 				margin-left: 1rem;
 				width: 2rem;
 				height: 2rem;
+				border-radius: 2px;
 			}
 		}
 	}

@@ -1,124 +1,83 @@
 import style from './addPlayer.module.scss'
 
 import TextInput from '@/component/textInput/textInput.component'
-import CheckBoxInput from '@/component/checkBoxInput/checkBoxInput.component'
 import SelectInput from '@/component/selectInput/selectInput.componen'
-import PlayerEquipEditor from '../../component/playerEquipEditor.component'
+import PlayerEquipEditor from './component/playerEquipEditor.component'
+import PersonalData from './component/personalData.component'
 
-import { SyntheticEvent, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ClassRole, GameClasses } from '../../data/data.type'
+import { ClassRole, GameClasses } from './data/data.type'
 
-import { GuildInitialState, PlayerEquip } from '@/store/guild/guild.type'
+import { GuildInitialState } from '@/store/guild/guild.type'
 import { AppDispatch, RootState } from '@/store/store'
 
-import classOption from '../../data/class.data'
-import gameClasses from '../../data/class.data'
-import data from '../../../../public/data.json'
+import classOption from './data/class.data'
+import gameClasses from './data/class.data'
 
-import { addPlayerToList } from '@/store/guild/guild.slice'
+import handleSubmit from './handler/handleSubmit/handleSubmit.handler'
+import { PlayerInitialState } from '@/store/playerEquip/playerEquip.type'
+
+const PlayerEquipEditorMemoized = memo(PlayerEquipEditor)
+const PersonalDataMemoized = memo(PersonalData)
 
 const AddPlayer = () => {
 	const [selectedClass, setSelectedClass] = useState<GameClasses>(gameClasses[0])
 	const [selectedRole, setSelectedRole] = useState<ClassRole>(gameClasses[0].roles[0])
-	const [playerEquip, setPlayerEquip] = useState<PlayerEquip | undefined>({})
-	const [timeIsOut, setTimeIsOut] = useState<boolean>(false)
+	const [timeIsOut, setTimeIsOut] = useState<boolean>(true)
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	console.log(data)
-	
-
-	const { guildMembers, memberAdded } = useSelector<
-		RootState,
-		GuildInitialState
-	>((state) => state.guildSlice)
-
-	const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-		event.preventDefault()
-
-		const form = event.currentTarget
-		let data = {}
-
-		for (let i = 0; i < form.elements.length; i++) {
-			const formElements = form.elements[i] as HTMLInputElement
-			switch (formElements.type) {
-				case 'submit':
-					break
-				case 'text':
-					data = {
-						...data,
-						[formElements.name.toLowerCase()]: formElements.value,
-					}
-					break
-				case 'checkbox':
-					data = {
-						...data,
-						[formElements.name.toLowerCase()]: formElements.checked,
-					}
-					break
-				case 'number':
-					data = {
-						...data,
-						[formElements.name.toLowerCase()]: Number(formElements.value),
-					}
-			}
-		}
-
-		data = {
-			...data,
-			class: selectedClass,
-			role: selectedRole,
-			equip: playerEquip,
-		}
-
-		//@ts-ignore
-		dispatch(addPlayerToList(data))
-	}
+	const { playerEquip } = useSelector<RootState, PlayerInitialState>(
+		(state) => state.playerEquipSlice
+	)
+	const { guildMembers } = useSelector<RootState, GuildInitialState>(
+		(state) => state.guildSlice
+	)
 
 	useEffect(() => {
-		if (memberAdded) setTimeout(() => setTimeIsOut(true), 3000)
-	}, [memberAdded])
+		if (guildMembers.length > 0) setTimeIsOut(false)
+		setTimeout(() => setTimeIsOut(true), 3000)
+	}, [guildMembers])
 
 	useEffect(() => {
 		setSelectedRole(selectedClass.roles[0])
 	}, [selectedClass])
 
-	const options = [...selectedClass.roles,]
+	const options: ClassRole[] = [...selectedClass.roles]
 
 	return (
-		<form onSubmit={handleSubmit} className={style.add_player_form}>
-			<div
-				className={`${style.add_player_flex_column_spacebetween} ${style.add_player_character_data}`}
-			>
+		<form
+			className={style.add_player_form}
+			onSubmit={(event) =>
+				handleSubmit({
+					dispatch,
+					event,
+					userData: [
+						['class', selectedClass],
+						['role', selectedRole],
+						['equip', playerEquip],
+					],
+				})
+			}
+		>
+			<div className={style.add_player_inputs_container}>
 				<header className={style.add_player_header}>
 					<p> Character Data</p>
 				</header>
+				<PersonalDataMemoized />
 				<div className={style.add_personal_data}>
-					<TextInput inputID='Name' type='text' placeholder='Player name...' />
-					<div>
-						<p className={style.add_title}>Social Apps</p>
-						<div className={style.add_player_checkbox_container}>
-							<CheckBoxInput inputID='Discord' />
-							<CheckBoxInput inputID='Telegram' />
-						</div>
-					</div>
-				</div>
-				<div className={style.add_personal_data}>
-					<SelectInput
+					<SelectInput<GameClasses>
 						height='13rem'
 						inputID='Class'
 						selectedOption={selectedClass}
-						setSelection={setSelectedClass}
+						setOption={setSelectedClass}
 						options={classOption}
 					/>
-					<SelectInput
+					<SelectInput<ClassRole>
 						inputID='Role'
-						//@ts-ignore
 						selectedOption={selectedRole}
-						//@ts-ignore
-						setSelection={setSelectedRole}
-						//@ts-ignore
+						setOption={setSelectedRole}
 						options={options}
 					/>
 					<TextInput
@@ -129,12 +88,13 @@ const AddPlayer = () => {
 					/>
 				</div>
 				<div className={style.add_player_submit_container}>
-					{!memberAdded || timeIsOut ? (
+					{timeIsOut ? (
 						<button className={style.add_player_submit_button} type='submit'>
 							Add new Member!
 						</button>
 					) : (
 						<button
+							disabled
 							className={style.add_player_submit_button_succes}
 							type='submit'
 						>
@@ -143,14 +103,11 @@ const AddPlayer = () => {
 					)}
 				</div>
 			</div>
-			<div className={style.add_player_character_data}>
+			<div className={style.add_player_inputs_container}>
 				<header className={style.add_player_header}>
 					<p>Hero Equip</p>
 				</header>
-				<PlayerEquipEditor
-					setPlayerEquip={setPlayerEquip}
-					playerEquip={playerEquip}
-				/>
+				<PlayerEquipEditorMemoized playerEquip={playerEquip} />
 			</div>
 		</form>
 	)

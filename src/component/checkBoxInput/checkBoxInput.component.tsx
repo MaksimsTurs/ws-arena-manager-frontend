@@ -1,4 +1,5 @@
 import style from './checkBoxInput.module.scss'
+
 import { CheckBoxInputProps } from './checkBoxInput.types'
 
 /**

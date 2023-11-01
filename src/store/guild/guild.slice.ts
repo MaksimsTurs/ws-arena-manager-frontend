@@ -1,21 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { GuildInitialState, PlayerInformation } from './guild.type'
-import { EquipParameters } from '@/managerWindow/data/data.type'
+import { GameParameters } from '@/managerWindow/tab/addPlayer/data/type/gameParameters.type'
 
 const initialState: GuildInitialState = {
 	guildMembers: JSON.parse(localStorage.getItem('guild') || '[]'),
-  memberAdded: false
 }
 
 const guildSlice = createSlice({
 	initialState,
 	name: 'guild',
 	reducers: {
-		addPlayerToList: (state, { payload }: PayloadAction<PlayerInformation>) => {
-			console.log(payload)
-			state.memberAdded = false
-      let playerParameters: Partial<EquipParameters> = {}
-			let guildMembers: PlayerInformation[] = state.guildMembers
+		addPlayerToList: (state, { payload }: PayloadAction<PlayerInformation >) => {
+      let playerParameters: Partial<GameParameters> = {}
 			let guildMemer = {
 				name: payload.name,
 				class: payload.class,
@@ -50,7 +46,6 @@ const guildSlice = createSlice({
 			guildMemer = {...guildMemer, playerParameters }
 
 			state.guildMembers = [...state.guildMembers, guildMemer]
-      state.memberAdded = !(state.guildMembers === guildMembers)
 
 			localStorage.setItem('guild', JSON.stringify(state.guildMembers))
 		},

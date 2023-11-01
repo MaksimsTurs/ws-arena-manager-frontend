@@ -1,7 +1,12 @@
 @import './variabel.scss';
 
-@mixin flexCenterCenter() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@mixin displayFlex(
+	$align-items: normal,
+	$justify-content: start,
+	$flex-direction: row
+) {
+	display: flex;
+	align-items: $align-items;
+	justify-content: $justify-content;
+	flex-direction: $flex-direction;
 }

@@ -3,9 +3,11 @@ import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 
 import guildSlice from './guild/guild.slice'
+import playerEquipSlice from './playerEquip/playerEquip.slice'
 
 export const rootReducer = combineReducers({
-  guildSlice
+  guildSlice,
+  playerEquipSlice
 })
 
 const store = configureStore({

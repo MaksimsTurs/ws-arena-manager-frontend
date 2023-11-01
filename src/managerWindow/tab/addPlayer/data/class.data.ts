@@ -1,19 +1,19 @@
-import druid from '../classIMG/druid.png?format=webp&prest=thumbnail'
-import ranger from '../classIMG/ranger.png?format=webp&prest=thumbnail'
-import bladeDancer from '../classIMG/blade_dancer.png?format=webp&prest=thumbnail'
-import warden from '../classIMG/warden.png?format=webp&prest=thumbnail'
-import beastmaster from '../classIMG/beastmaster.png?format=webp&prest=thumbnail'
-import paladin from '../classIMG/paladin.png?format=webp&prest=thumbnail'
-import priest from '../classIMG/priest.png?format=webp&prest=thumbnail'
-import mage from '../classIMG/mag.png?format=webp&prest=thumbnail'
-import seeker from '../classIMG/seeker.png?format=webp&prest=thumbnail'
-import templar from '../classIMG/templar.png?format=webp&prest=thumbnail'
+import druid from '../img/gameClasses/druid.png?format=webp&prest=thumbnail'
+import ranger from '../img/gameClasses/ranger.png?format=webp&prest=thumbnail'
+import bladeDancer from '../img/gameClasses/blade_dancer.png?format=webp&prest=thumbnail'
+import warden from '../img/gameClasses/warden.png?format=webp&prest=thumbnail'
+import beastmaster from '../img/gameClasses/beastmaster.png?format=webp&prest=thumbnail'
+import paladin from '../img/gameClasses/paladin.png?format=webp&prest=thumbnail'
+import priest from '../img/gameClasses/priest.png?format=webp&prest=thumbnail'
+import mage from '../img/gameClasses/mag.png?format=webp&prest=thumbnail'
+import seeker from '../img/gameClasses/seeker.png?format=webp&prest=thumbnail'
+import templar from '../img/gameClasses/templar.png?format=webp&prest=thumbnail'
 
 import { GameClasses } from './data.type'
 
-import attack from '../roleIMG/attack.png'
-import tank from '../roleIMG/tank.png'
-import support from '../roleIMG/support.png'
+import attack from '../img/classRoles/attack.png?format=webp&prest=thumbnail'
+import tank from '../img/classRoles/tank.png?format=webp&prest=thumbnail'
+import support from '../img/classRoles/support.png?format=webp&prest=thumbnail'
 
 const gameClasses: GameClasses[] = [
 	{

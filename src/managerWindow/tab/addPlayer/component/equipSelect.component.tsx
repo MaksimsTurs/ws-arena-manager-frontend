@@ -1,17 +1,21 @@
-import { EquipSelectProps } from '../managerWindow.type'
 import style from '../scss/equipSelect.module.scss'
 
-import slotBorder from '../editorIMG/slots/slot-border.png'
+import { EquipSelectProps } from '../addPlayer.type'
+
+import { useNavigate } from 'react-router-dom'
+
+import slotBorder from '../img/slotPlaceholder/slot-border.png?format=webp&prest=thumbnail'
 
 const EquipSelect = ({
-	backgroundImg,
-	setEquipType,
-	equipType,
 	setEquipListVisible,
+	backgroundImg,
+	equipType,
 }: EquipSelectProps) => {
+	const navigate = useNavigate()
+
 	const showEquipListAndChoseEquipType = () => {
 		setEquipListVisible(true)
-		setEquipType(equipType)
+		navigate(`/?equip-type=${equipType}`)
 	}
 
 	return (

@@ -1,4 +1,5 @@
 import style from './textInput.module.scss'
+
 import { TextInputProps } from './textInput.types'
 
 /**

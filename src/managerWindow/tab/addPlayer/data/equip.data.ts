@@ -1,14 +1,15 @@
-import { Amulet, Cloak, Head, Body, Gloves, Weapon, Boots, Sash, Ring } from './data.type'
+//@ts-nocheck
+import { Amulet, Body, Boots, Cloak, Gloves, Head, Ring, Sash, Weapon } from './type/equipParameters.type'
 
-import _1 from '../editorIMG/equip/1.webp'
-import _2 from '../editorIMG/equip/2.webp'
-import _3 from '../editorIMG/equip/3.webp'
-import _4 from '../editorIMG/equip/4.webp'
-import _5 from '../editorIMG/equip/5.webp'
-import _6 from '../editorIMG/equip/6.webp'
-import _7 from '../editorIMG/equip/7.webp'
-import _8 from '../editorIMG/equip/8.webp'
-import _9 from '../editorIMG/equip/9.webp'
+import _1 from '../img/equip/1.webp'
+import _2 from '../img/equip/2.webp'
+import _3 from '../img/equip/3.webp'
+import _4 from '../img/equip/4.webp'
+import _5 from '../img/equip/5.webp'
+import _6 from '../img/equip/6.webp'
+import _7 from '../img/equip/7.webp'
+import _8 from '../img/equip/8.webp'
+import _9 from '../img/equip/9.webp'
 
 export const headEquip: Head[] = [
 	{

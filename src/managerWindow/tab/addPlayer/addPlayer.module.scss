@@ -4,49 +4,35 @@
 .add_player_form {
 	display: flex;
 
-	.add_player_flex_column_spacebetween {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
-	.add_player_character_data {
-		padding: 0.5rem 1rem;
-		// position: relative;
-		margin: 0.5rem;
-		border-right: 1px solid silver;
-		transition: all 0.3s ease;
+	.add_player_inputs_container {
+		@include displayFlex(normal, space-between, column);
+		border-right: $border-root;
+		padding: 1rem;
+		margin: 0rem 1rem;
+		gap: 0.5rem;
 
 		&:last-child {
 			border: none;
 		}
 
 		.add_personal_data {
-			display: flex;
-			align-items: end;
+			@include displayFlex(end);
 			gap: 1rem;
-			margin-bottom: 1rem;
 
-			&:last-child {
-				margin: 0rem;
+			.add_title {
+				color: white;
+				margin-bottom: 0.5rem;
 			}
+		}
+
+		.add_player_checkbox_container {
+			@include displayFlex();
+			gap: 1rem;
 		}
 	}
 
-	.add_title {
-		color: white;
-		margin-bottom: 0.5rem;
-	}
-
-	.add_player_checkbox_container {
-		display: flex;
-		gap: 1rem;
-	}
-
 	.add_player_header {
-		margin-bottom: 1rem;
-		display: flex;
-		justify-content: center;
+		@include displayFlex(normal, center);
 
 		p {
 			font-size: 1.4rem;
@@ -58,29 +44,27 @@
 	}
 
 	.add_player_submit_container {
-		display: flex;
-		justify-content: center;
-		margin-top: 1rem;
+		@include displayFlex(normal, center);
 
 		.add_player_submit_button {
 			border-radius: $border-radius-container;
+			background-color: $background-color-root;
+			transition: all $transition-very-fast-ease;
 			color: white;
 			padding: 0.8rem 2rem;
-			background-color: rgb(103, 103, 208);
-			transition: all 0.2s ease;
 
 			&:hover {
-				background-color: rgb(72, 72, 174);
-				transition: all $transition-fast-ease;
+				background-color: $background-color-root-darker;
+				transition: all $transition-very-fast-ease;
 			}
 		}
 
 		.add_player_submit_button_succes {
 			border-radius: $border-radius-container;
+			transition: all $transition-very-fast-ease;
 			color: white;
 			padding: 0.8rem 2rem;
 			background-color: rgb(27, 100, 12);
-			transition: all 0.2s ease;
 		}
 	}
 }

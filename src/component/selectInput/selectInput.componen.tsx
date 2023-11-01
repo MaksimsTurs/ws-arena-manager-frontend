@@ -1,18 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
 import style from './selectInput.module.scss'
+
+import { useEffect, useRef, useState } from 'react'
+
 import { SelectInputProps } from './selectInput.type'
+import { GameClasses } from '@/managerWindow/tab/addPlayer/data/data.type'
 
 /**
  * @param inputID used to bind label with input and for label Text
  */
 
-const SelectInput = ({
+const SelectInput = <T extends Omit<GameClasses, 'roles'>>({
 	inputID,
 	options,
 	selectedOption,
-	setSelection,
+	setOption,
 	height,
-}: SelectInputProps) => {
+}: SelectInputProps<T>) => {
 	const [isDropDownVisible, setDropDownVisible] = useState<boolean>(false)
 
 	const dropdownButtonRef = useRef<HTMLDivElement>(null)
@@ -27,47 +30,50 @@ const SelectInput = ({
 		}
 
 		document.addEventListener('click', outsideClickHandler)
+
+		return () => {
+			document.removeEventListener('click', outsideClickHandler)
+		}
 	}, [])
 
-	let selectedClassIMG: string = ''
+	let selectedOptionIMG: string = ''
 
 	for (let index = 0; index < options.length; index++) {
 		if (options[index].title === selectedOption.title) {
-			selectedClassIMG = options[index].src
+			selectedOptionIMG = options[index].src
 		} else {
 			continue
 		}
 	}
 
 	return (
-		<div className={style.select_container}>
+		<div>
 			<p className={style.select_title}>{inputID}</p>
-			<div className={style.select_custom_select_container}>
+			<div ref={dropdownButtonRef} className={style.select_container}>
+				<p>{selectedOption.title}</p>
+				<img src={selectedOptionIMG} />
 				<div
-					className={style.select_selected_class_container}
-					ref={dropdownButtonRef}
+					className={
+						isDropDownVisible
+							? style.select_custom_dropdown
+							: `${style.select_custom_dropdown} ${style.select_hidden}`
+					}
+					style={
+						height
+							? { height }
+							: { height: `(${options.length} * 3px)`, overflow: 'auto' }
+					}
 				>
-					<p>{selectedOption.title}</p>
-					<img src={selectedClassIMG} />
-					<div
-						style={{ height: height ? height : `calc(${options.length} * 3)`}}
-						className={
-							isDropDownVisible
-								? style.select_custom_dropdown
-								: `${style.select_custom_dropdown} ${style.select_hidden}`
-						}
-					>
-						{options.map((option) => (
-							<div
-								key={option.title}
-								onClick={() => setSelection(option)}
-								className={style.select_option}
-							>
-								<p>{option.title}</p>
-								<img src={option.src} alt={option.title} />
-							</div>
-						))}
-					</div>
+					{options.map((option) => (
+						<div
+							key={option.title}
+							onClick={() => setOption(option)}
+							className={style.select_option}
+						>
+							<p>{option.title}</p>
+							<img src={option.src} alt={option.title} />
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
