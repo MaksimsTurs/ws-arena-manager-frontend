@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from '@/store/store'
 
 import classOption from '../../data/class.data'
 import gameClasses from '../../data/class.data'
+import data from '../../data/data.json'
 
 import { addPlayerToList } from '@/store/guild/guild.slice'
 
@@ -25,14 +26,7 @@ const AddPlayer = () => {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	useEffect(() => {
-		const d = async () => {
-			const d = await fetch('../../../data.json')
-			const ds = await d.text()
-			console.log(ds)
-		}
-		d()
-	},[])
+	console.log(data)
 
 	const { guildMembers, memberAdded } = useSelector<
 		RootState,
