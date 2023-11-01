@@ -9,7 +9,7 @@
 	"scripts": {
 		"test": "vitest",
 		"dev": "vite",
-		"build": "vitest run && vite build",
+		"build": "vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
