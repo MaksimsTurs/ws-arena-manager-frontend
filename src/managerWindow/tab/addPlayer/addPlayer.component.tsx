@@ -14,7 +14,7 @@ import { AppDispatch, RootState } from '@/store/store'
 
 import classOption from '../../data/class.data'
 import gameClasses from '../../data/class.data'
-import data from '../../data/data.json'
+import data from '../../../../public/data.json'
 
 import { addPlayerToList } from '@/store/guild/guild.slice'
 
