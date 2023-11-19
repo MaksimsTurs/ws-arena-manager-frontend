@@ -1,0 +1,19 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.input_container {
+	@include displayFlex(center);
+	width: 100%;
+
+	.input_label_text {
+		@include inputLabel();
+	}
+
+	.input_container_input {
+		height: $height-input;
+		border-radius: $border-radius-container;
+		flex-grow: 1;
+		background-color: white;
+		padding: 0.5rem;
+	}
+}

@@ -10,3 +10,10 @@
 	justify-content: $justify-content;
 	flex-direction: $flex-direction;
 }
+
+@mixin inputLabel() {
+	width: 8rem;
+	font-size: $font-size-medium;
+	color: white;
+	margin-right: 1rem;
+}

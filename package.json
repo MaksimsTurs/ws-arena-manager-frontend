@@ -1,6 +1,6 @@
 {
-	"name": "warspear-arena-manage",
-	"version": "0.0.1",
+	"name": "warspear-arena-manage-frontend",
+	"version": "0.0.2",
 	"type": "module",
 	"engines": {
 		"node": ">= 18.x",
@@ -13,8 +13,9 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@types/node": "^20.8.10",
-		"@types/react-dom": "^18.2.14",
+		"@rollup/plugin-dynamic-import-vars": "^2.1.0",
+		"@types/node": "^20.9.0",
+		"@types/react-dom": "^18.2.15",
 		"cssnano": "^6.0.1",
 		"postcss": "^8.4.31",
 		"postcss-combine-duplicated-selectors": "^10.0.3",
@@ -23,19 +24,20 @@
 		"terser": "^5.24.0",
 		"typescript": "5.2.2",
 		"vite": "^4.5.0",
-		"vite-imagetools": "^6.1.0",
+		"vite-imagetools": "^6.2.4",
 		"vite-plugin-checker": "^0.6.2",
 		"vite-plugin-html": "^3.2.0",
 		"vite-plugin-image-optimizer": "^1.1.7",
 		"vite-plugin-image-presets": "^0.3.4",
 		"vite-plugin-optimize-css-modules": "^1.0.4",
-		"vite-plugin-webfont-dl": "^3.7.6",
+		"vite-plugin-webfont-dl": "^3.9.0",
 		"vitest": "^0.34.6"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.7",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-hook-form": "^7.48.2",
 		"react-redux": "^8.1.3",
 		"react-router-dom": "^6.18.0"
 	}

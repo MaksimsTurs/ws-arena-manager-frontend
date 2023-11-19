@@ -1,0 +1,27 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_data_container {
+	@include displayFlex(center, space-between, column);
+	overflow-y: auto;
+	padding: 1rem;
+	color: white;
+	flex-grow: 1;
+
+	.equip_data_body {
+		@include displayFlex(normal, space-between, column);
+	}
+
+	.equip_equip_button {
+		border-radius: $border-radius-container;
+		transition: all $transition-fast-ease;
+		background-color: $background-color-root;
+		color: white;
+		padding: 0.6rem 4rem;
+
+		&:hover {
+			background-color: $background-color-root-darker;
+			transition: all $transition-fast-ease;
+		}
+	}
+}

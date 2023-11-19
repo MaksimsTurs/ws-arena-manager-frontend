@@ -1,0 +1,50 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.buff_data_container {
+	transition: all $transition-fast-ease;
+
+	.buff_current_buff_type {
+		color: $color-eqip-params;
+		border-bottom: 1px solid $color-eqip-params;
+		font-size: 2rem;
+	}
+
+	.buff_body {
+		@include displayFlex(center);
+		padding: 0.5rem 0rem;
+		border-bottom: 1px solid transparent;
+		cursor: pointer;
+
+		&:hover {
+			border-bottom: 1px solid silver;
+		}
+
+		img {
+			border-radius: 3px;
+		}
+
+		.buff_title {
+			margin: 0rem 0.5rem;
+			color: $background-color-root-light;
+		}
+
+		.buff_buff {
+			color: $color-eqip-params;
+		}
+	}
+
+	.buff_selected {
+		border-bottom: 1px solid $color-eqip-params;
+
+		&:hover {
+			border-bottom: 1px solid $color-eqip-params;
+		}
+	}
+}
+
+.buff_container_hidden {
+	transition: all $transition-fast-ease;
+	width: 0;
+	margin: 0;
+}

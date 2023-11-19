@@ -1,0 +1,15 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_select_container {
+	@include displayFlex(center, start, column);
+
+	.equip_select_body {
+		display: flex;
+	}
+	
+	.equip_select_body_center {
+		@include displayFlex(normal, center)
+	}
+}
+

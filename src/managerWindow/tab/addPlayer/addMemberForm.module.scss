@@ -1,0 +1,57 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.add_member_form {
+	display: flex;
+	flex-grow: 1;
+
+	.add_member_inputs_container {
+		border-right: $border-root;
+		padding: 1rem 2rem;
+
+		&:last-child {
+			border: none;
+		}
+
+		.add_member_inputs_body {
+			@include displayFlex(normal, start, column);
+	
+			.add_member_header {
+				@include displayFlex(normal, center);
+				margin-bottom: 1rem;
+	
+				h3 {
+					border-bottom: $border-root;
+					font-size: 1.4rem;
+					color: white;
+					width: fit-content;
+					padding-bottom: 0.2rem;
+				}
+			}
+		}
+	}
+
+	.add_member_submit_container {
+		@include displayFlex(center, center);
+    margin-top: 4rem;
+
+		.add_member_submit_button {
+	    background-color: $background-color-root;
+			border-radius: $border-radius-container;
+			transition: all $transition-fast-ease;
+			padding: 0.75rem 4rem;
+			color: white;
+			font-weight: 600;
+
+			&:hover {
+				transition: all $transition-fast-ease;
+				background-color: $background-color-root-darker;
+			}
+		}
+
+		.add_member_submitet_button {
+			transition: all $transition-fast-ease;
+			background-color: rgb(0, 65, 0) !important;
+		}
+	}
+}

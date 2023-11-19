@@ -1,0 +1,70 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_error_container {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	color: rgb(255, 141, 141);
+}
+
+.equip_list_close_button {
+	transition: all $transition-fast-ease;
+	border-radius: $border-radius-container;
+	position: absolute;
+	z-index: 2;
+	right: 4%;
+	top: 4%;
+	color: white;
+	font-size: 1.2rem;
+	padding: 0rem 0.4rem;
+
+	&:hover {
+		transition: all $transition-fast-ease;
+		background-color: rgb(103, 103, 103);
+	}
+}
+
+.equip_list_empty {
+	@include displayFlex(center, center);
+	flex-grow: 1;
+	color: rgb(65, 65, 65);
+	font-size: 3rem;
+}
+
+.equip_list_item {
+	@include displayFlex(center);
+	transition: all $transition-fast-ease;
+	border-bottom: $border-root;
+	position: relative;
+	padding: 1rem 3rem 1rem 1rem;
+	cursor: pointer;
+
+	.equip_item_icon {
+		position: absolute;
+		top: 28px;
+		left: 28px;
+		width: 2.6rem;
+		height: 2.6rem;
+		border-radius: 2px;
+	}
+
+	&:hover {
+		transition: all 0.2s;
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	img {
+		width: 4rem;
+		height: 4rem;
+	}
+
+	p {
+		color: $color-eqip-params;
+		margin-left: 1rem;
+		margin-right: 0.5rem;
+		font-size: 1.1rem;
+	}
+}

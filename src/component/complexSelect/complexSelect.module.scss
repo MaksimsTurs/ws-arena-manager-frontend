@@ -1,0 +1,31 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_select_container {
+	position: relative;
+	width: fit-content;
+	height: fit-content;
+	cursor: pointer;
+
+	img {
+		pointer-events: none;
+		width: 3.7rem;
+		height: 3.7rem;
+	}
+
+	.equip_param_buff_container {
+		color: $color-eqip-params;
+    font-weight: bold;
+		position: absolute;
+		bottom: 25%;
+		left: 0;
+		width: 100%;
+		text-shadow: -1px 0 1px #000, 0 -1px 1px #000, 1px 0 1px #000, 0 1px 1px #000;
+		text-align: center;
+	}
+
+	.equip_select_with_element {
+		width: 5.5rem;
+		height: 5.5rem;
+	}
+}

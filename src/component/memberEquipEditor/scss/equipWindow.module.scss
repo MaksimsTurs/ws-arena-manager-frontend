@@ -1,0 +1,30 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.equip_list_container {
+  @include displayFlex(normal, start, column);
+	border-radius: $border-radius-container;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(3px);
+
+  .equip_list_close_button {
+    position: absolute;
+    z-index: 2;
+    right: 3%;
+    top: 2%;
+    color: white;
+    font-size: 1.5rem;
+  }
+}
+
+.equip_list_hidden {
+  visibility: hidden;
+  opacity: 0;
+}

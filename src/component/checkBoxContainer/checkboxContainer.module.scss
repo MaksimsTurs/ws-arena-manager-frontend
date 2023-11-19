@@ -1,0 +1,16 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.checkbox_container {
+	@include displayFlex(center);
+	gap: 0;
+
+	.checkbox_label_text {
+		@include inputLabel();
+	}
+
+	.checkbox_body {
+		@include displayFlex(center, space-between);
+		flex-grow: 1;
+	}
+}

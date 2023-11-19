@@ -1,17 +1,19 @@
+import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
-import { configureStore } from '@reduxjs/toolkit'
 
 import guildSlice from './guild/guild.slice'
 import playerEquipSlice from './playerEquip/playerEquip.slice'
+import windowContextSlice from './windowContext/windowContext.slice'
 
 export const rootReducer = combineReducers({
-  guildSlice,
-  playerEquipSlice
+	guildSlice,
+	playerEquipSlice,
+	windowContextSlice
 })
 
 const store = configureStore({
-  reducer: rootReducer
+	reducer: rootReducer,
 })
 
 export const useAppDispatch: DispatchFunc = useDispatch

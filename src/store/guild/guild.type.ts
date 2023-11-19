@@ -1,3 +1,4 @@
+import { GameClasses, ClassRoles } from '@/types/class.type'
 import {
 	Amulet,
 	Body,
@@ -8,19 +9,17 @@ import {
 	Ring,
 	Sash,
 	Weapon,
-} from '@/managerWindow/tab/addPlayer/data/type/equipParameters.type'
-import { GameParameters } from '@/managerWindow/tab/addPlayer/data/type/gameParameters.type'
-
-export type GuildInitialState = {
-	guildMembers: PlayerInformation[]
-}
+} from '@/types/equipParameters.type'
+import { GameParameters } from '@/types/gameParameters.type' 
 
 export type PlayerInformation = {
+	id: string
 	name: string
 	discord: boolean
 	telegram: boolean
-	class: string
-	role: string
+	guildRole: GuildRoles
+	class: GameClasses
+	role: ClassRoles
 	level: number
 	equip: PlayerEquip
 	playerParameters: Partial<GameParameters>
@@ -37,4 +36,16 @@ export type PlayerEquip = {
 	amulet?: Amulet
 	cloak?: Cloak
 	weapon?: Weapon
+}
+
+export type GuildInitialState = {
+	guildMembers: PlayerInformation[]
+	isKicked: boolean
+	isChanged: boolean
+	isAdded: boolean
+}
+
+export type GuildRoles = {
+	className: string
+	classIcon: string	
 }
