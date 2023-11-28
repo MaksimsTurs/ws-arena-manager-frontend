@@ -1,3 +1,4 @@
+//@ts-nocheck
 //Vite Configuration
 import { defineConfig as viteConfig } from 'vite'
 

@@ -1,4 +1,4 @@
-import style from '../scss/equipData.module.scss'
+import scss from '../scss/equipData.module.scss'
 
 import { EquipDataProps } from '../memberEquipEditor.type'
 import { AppDispatch } from '@/store/store'
@@ -9,11 +9,7 @@ import { useDispatch } from 'react-redux'
 import EquipParameters from './equipParameters.component'
 import EquipBuffData from './equipBuffData.component'
 
-import {
-	pullOn,
-	pullUp,
-	selectEquipToCheck,
-} from '@/store/playerEquip/playerEquip.slice'
+import { pullOn, pullUp, selectEquipToCheck } from '@/store/memberEquip/memberEquip.slice'
 
 const EquipData = ({
 	equipPosition,
@@ -23,18 +19,15 @@ const EquipData = ({
 	memberEquip,
 	isEditMode,
 }: EquipDataProps) => {
-	let isEquiped = false
 	const [buff, setBuff] = useState<string>('')
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const equipTypeValues = Object.entries(memberEquip)
-
 	const pullUpOnEquip = () => {
-		if (isEquiped) {
+		//@ts-ignore
+		if (memberEquip[equipPosition]) {
 			dispatch(pullUp(equipPosition))
 		} else {
-			//TODO: Fix type error!
 			//@ts-ignore
 			dispatch(pullOn({ equip: selectedEquip, equipPosition }))
 		}
@@ -42,27 +35,27 @@ const EquipData = ({
 		closeThisWindow()
 	}
 
-	for (let index = 0; index < equipTypeValues.length; index++) {
-		for (let [key] of equipTypeValues) {
-			if (key === equipPosition) {
-				isEquiped = true
-				break
-			}
-		}
-	}
-
 	return (
-		<div className={style.equip_data_container}>
-			<div className={style.equip_data_body}>
-				<EquipParameters setChoseMode={setBuff} selectedEquip={selectedEquip}/>
-				<EquipBuffData isChoseMode={buff} selectedEquip={selectedEquip} />
+		<div className={scss.equip_data_container}>
+			<div className={scss.equip_data_body}>
+				<EquipParameters 
+					setChoseMode={setBuff}  
+					selectedEquip={selectedEquip} 
+					memberEquip={memberEquip}
+				/>
+				<EquipBuffData
+					isChoseMode={buff}
+					selectedEquip={selectedEquip}
+					memberEquip={memberEquip}
+				/>
 			</div>
 			{currentTab === 'Add Member!' || isEditMode ? (
 				<button
 					onClick={pullUpOnEquip}
-					className={style.equip_equip_button}
+					className={scss.equip_equip_button}
 					type='button'>
-					{isEquiped ? 'Unequip' : 'Equip'}
+					{/* @ts-ignore */}
+					{memberEquip[equipPosition] ? 'Unequip' : 'Equip'}
 				</button>
 			) : null}
 		</div>

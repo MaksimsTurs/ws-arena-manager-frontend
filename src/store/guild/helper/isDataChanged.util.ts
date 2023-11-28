@@ -1,8 +1,8 @@
-import { PlayerInformation } from '../guild.type'
+import { MemberInformation } from '../guild.type'
 
 const isDataChanged = (
-	currentMemberData: PlayerInformation,
-	newMemberData: PlayerInformation
+	currentMemberData: MemberInformation,
+	newMemberData: MemberInformation
 ): boolean => {
 	const currentMemberEntries = Object.entries(currentMemberData['equip'])
 	const newMemberEntries = Object.entries(newMemberData['equip'])
@@ -15,7 +15,7 @@ const isDataChanged = (
 		return true
 	} else if (currentMemberData.telegram !== newMemberData.telegram) {
 		return true
-	} else if (currentMemberData.role.title !== newMemberData.role.title) {
+	} else if (currentMemberData.role.className !== newMemberData.role.className) {
 		return true
 	} else if (currentMemberEntries.length !== newMemberEntries.length) {
 		return true

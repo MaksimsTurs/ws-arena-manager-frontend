@@ -1,4 +1,4 @@
-import style from './textInput.module.scss'
+import scss from './textInput.module.scss'
 
 import { TextInputProps } from './textInput.types'
 
@@ -13,12 +13,12 @@ const TextInput = <T extends Record<any, any>>({
 	validation,
 }: TextInputProps<T>) => {
 	return (
-		<div className={style.input_container}>
-			<label className={style.input_label_text} htmlFor={inputLabel}>
+		<div className={scss.input_container}>
+			<label className={scss.input_label_text} htmlFor={inputLabel}>
 				{inputLabel}
 			</label>
 			<input
-				className={style.input_container_input}
+				className={scss.input_container_input}
 				autoComplete='off'
 				id={inputLabel}
 				type={type}
@@ -26,7 +26,7 @@ const TextInput = <T extends Record<any, any>>({
 				placeholder={placeholder}
 				defaultValue={defaultValue ? defaultValue : type === 'number' ? 34 : undefined}
 				spellCheck={false}
-				min={0}
+				min={1}
 				{...register(inputName, {
 					validate: validation,
 				})}

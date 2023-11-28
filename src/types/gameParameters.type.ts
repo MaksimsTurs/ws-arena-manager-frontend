@@ -30,7 +30,7 @@ export type GameParameters = {
 	resilience?: number
 	resistance?: number
 	health?: number
-	healtP?: number
+	healthP?: number
 	vampirism?: number
 	parry?: number
 	block?: number
@@ -52,5 +52,6 @@ export type GameParameters = {
 	energyRegeneration?: number
 	energyRegenerationP?: number
 	energyIncrease?: number
+	energyIncreaseP?: number
 	rage?: number
 }

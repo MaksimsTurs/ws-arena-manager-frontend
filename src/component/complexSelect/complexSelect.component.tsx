@@ -1,4 +1,4 @@
-import style from './complexSelect.module.scss'
+import scss from './complexSelect.module.scss'
 
 import { WindowContextState } from '@/store/windowContext/windowContext.type'
 import { AppDispatch, RootState } from '@/store/store'
@@ -8,11 +8,9 @@ import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectEquipToCheck } from '@/store/playerEquip/playerEquip.slice'
+import { selectEquipToCheck } from '@/store/memberEquip/memberEquip.slice'
 
-import slotBorder from './slot-border.png?format=webp&prest=thumbnail'
-
-import handlePercentageParams from '@/utils/handlePercentageParams.util'
+import slotBorder from './img/slot-border.png?format=webp&prest=thumbnail'
 
 const ComplexSelect = ({
 	backgroundIMG,
@@ -22,12 +20,12 @@ const ComplexSelect = ({
 	onClick,
 	className,
 	renederElement,
-}: ComplexSelectProps) => {
+	compare,
+}: ComplexSelectProps) => {	
 	const dispatch = useDispatch<AppDispatch>()
 	const navigate = useNavigate()
-	const { currentTab, isEditMode } = useSelector<RootState, WindowContextState>(
-		state => state.windowContextSlice
-	)
+
+	const { currentTab, isEditMode } = useSelector<RootState, WindowContextState>(state => state.windowContextSlice)
 
 	const showEqipWindow = () => {
 		if (setEquipWindowVisible) {
@@ -35,29 +33,49 @@ const ComplexSelect = ({
 				navigate(`/?equip-position=${equipPosition}`)
 				setEquipWindowVisible(true)
 			} else if (!isEditMode) {
-				//TODO: Type fix!
 				//@ts-ignore
 				dispatch(selectEquipToCheck(memberEquip[equipPosition]))
 			}
 		}
 	}
+	
+	let difference: number = 0
+	let differenceText: string | number = difference < 0 ? difference : `+${difference}`
+
+	const onClickAtrr = setEquipWindowVisible && showEqipWindow || onClick && onClick
+	const differenceColor: string = difference < 0 ? 'red' : 'green'
+
+
+	if (compare) {
+		difference =
+			compare.numbOne && compare.numbTwo
+				? Number((compare.numbOne - compare.numbTwo).toFixed(0))
+				: compare.numbOne
+				? compare.numbOne - 0
+				: compare.numbTwo
+				? compare.numbTwo - 0
+				: 0
+	}
 
 	return (
 		<Fragment>
 			{renederElement ? (
-				<div onClick={setEquipWindowVisible ? showEqipWindow : onClick ? onClick : undefined}
-					className={`${style.equip_select_container} ${className}`}
-					style={{background: `url(${backgroundIMG}) 50% 42% / 65% 63% no-repeat`}}>
-					<div className={style.equip_param_buff_container}>
-						<p>{handlePercentageParams(renederElement.element)}</p>
+				<div
+					className={`${scss.equip_select_container} ${className}`}
+					onClick={onClickAtrr}
+					style={{ background: `url(${backgroundIMG}) 50% 42% / 65% 63% no-repeat` }}>
+					<div className={scss.equip_param_buff_container}>
+						{Boolean(difference) && (<p style={{ color: differenceColor }}>{differenceText}</p>)}
+						<p>{renederElement.element}</p>
 					</div>
-					<img className={style.equip_select_with_element} src={slotBorder} />
+					<img className={scss.equip_select_with_element} src={slotBorder} />
 				</div>
 			) : (
-				<div onClick={setEquipWindowVisible ? showEqipWindow : onClick ? onClick : undefined }
-					className={`${style.equip_select_container} ${className}`}
-					style={{background: `url(${backgroundIMG}) 50% 42% / 65% 63% no-repeat`}}>
-					<img className={style.equip_select_slot} src={slotBorder} />
+				<div
+					className={`${scss.equip_select_container} ${className}`}
+					onClick={onClickAtrr}
+					style={{ background: `url(${backgroundIMG}) 50% 42% / 65% 63% no-repeat` }}>
+					<img className={scss.equip_select_slot} src={slotBorder} />
 				</div>
 			)}
 		</Fragment>

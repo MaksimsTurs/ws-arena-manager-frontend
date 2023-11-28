@@ -9,11 +9,12 @@ import {
 	Sash,
 	Weapon,
 } from '@/types/equipParameters.type'
-import { PlayerEquip } from '../guild/guild.type'
-import {
-	EquipPosition,
-	GameParameters,
-} from '@/types/gameParameters.type'
+import { EquipPosition, GameParameters } from '@/types/gameParameters.type'
+
+export type EquipInitialState = {
+	memberEquip: MemberEquip
+	selectedEquip: SelectedEquip
+}
 
 export type SelectedEquip =
 	| Head
@@ -27,9 +28,17 @@ export type SelectedEquip =
 	| Weapon
 	| undefined
 
-export type EquipInitialState = {
-	playerEquip: PlayerEquip
-	selectedEquip: SelectedEquip
+export type MemberEquip = {
+	head?: Head
+	body?: Body
+	gloves?: Gloves
+	sash?: Sash
+	boots?: Boots
+	rightRing?: Ring
+	leftRing?: Ring
+	amulet?: Amulet
+	cloak?: Cloak
+	weapon?: Weapon
 }
 
 export type PullOpOnEquip = {

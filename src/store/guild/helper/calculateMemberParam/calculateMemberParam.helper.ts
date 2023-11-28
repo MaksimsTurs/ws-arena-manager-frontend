@@ -3,128 +3,103 @@ import { CalculateMemberParam } from './calculateMemberParam.type'
 
 const calculateMemberParameters = ({
 	memberEquip,
+	guildBuffs,
 }: CalculateMemberParam): Partial<GameParameters> => {
-	let memberParams: Partial<GameParameters> = {}
-	let calculatedMemberParameters = {
-		physicDefence: 0,
-		magicDefence: 0,
-		physicDefenceP: 0,
-		magicDefenceP: 0,
-		resilience: 0,
-		resistance: 0,
-		health: 0,
-		healtP: 0,
-		vampirism: 0,
-		parry: 0,
-		block: 0,
-		doge: 0,
-		magicDamage: 0,
-		magicDamageP: 0,
-		physicDamage: 0,
-		physicDamageP: 0,
-		criticalChance: 0,
-		attackSpeed: 0,
-		accuracy: 0,
-		penetration: 0,
-		ferocity: 0,
-		cooldown: 0,
-		energyRegeneration: 0,
-		energyRegenerationP: 0,
-		energyIncrease: 0,
-		rage: 0,
-	}
+	let memberParams: Map<string, number> = new Map<string, number>()
 
-	const equipValues = Object.values(memberEquip)
+	memberParams.set('physicDefence', 0)
+	memberParams.set('magicDefence', 0)
+	memberParams.set('physicDefenceP', 0)
+	memberParams.set('magicDefenceP', 0)
+	memberParams.set('magicDamage', 0)
+	memberParams.set('magicDamageP', 0)
+	memberParams.set('physicDamage', 0)
+	memberParams.set('physicDamageP', 0)
+	memberParams.set('health', 0)
+	memberParams.set('healthP', 0)
 
-	for (
-		let equipValueIndex = 0;
-		equipValueIndex < equipValues.length;
-		equipValueIndex++
-	) {
-		const equipEntries = Object.entries(equipValues[equipValueIndex])
+	const excludeWords: string[] = [
+		'_id',
+		'lvl',
+		'name',
+		'icon',
+		'type',
+		'position',
+	]
+		
+	const memberEquipEntries = Object.entries(memberEquip)
 
-		for (let [key, value] of equipEntries) {
-			if (key === 'rune' || key === 'crystal') {
-				const buffEntries = Object.entries(value)
+	//Calculate all params from member equip
+	for (let [_key, equipValue] of memberEquipEntries) {
+		const eqipEntries = Object.entries(equipValue)
 
-				for (let [key, value] of buffEntries) {
-					if (Object.hasOwn(calculatedMemberParameters, key)) {
-						calculatedMemberParameters = {
-							...calculatedMemberParameters,
-							//TODO: Fix type error!
-							//@ts-ignore
-							[key]: calculatedMemberParameters[key] + value,
-						}
-					}
-				}
-			} else if (Object.hasOwn(calculatedMemberParameters, key)) {
-				calculatedMemberParameters = {
-					...calculatedMemberParameters,
-					//TODO: Fix type error!
-					//@ts-ignore
-					[key]: calculatedMemberParameters[key] + value,
+		for (let [paramKey, paramValue] of eqipEntries) {
+			if (paramKey === 'crystal' || paramKey === 'rune') {
+				//@ts-ignore
+				const equipBuffValue = Object.entries(paramValue)[0]
+
+				if (memberParams.get(equipBuffValue[0])) {
+					const newValue: number =
+						memberParams.get(equipBuffValue[0])! + (equipBuffValue[1] as number)
+					memberParams.set(equipBuffValue[0], newValue)
+				} else {
+					memberParams.set(equipBuffValue[0], equipBuffValue[1] as number)
 				}
 			} else {
-				calculatedMemberParameters = {
-					...calculatedMemberParameters,
-					[key]: value,
+				if (memberParams.get(paramKey)) {
+					const newValue: number =
+						memberParams.get(paramKey)! + (paramValue as number)
+					memberParams.set(paramKey, newValue)
+				} else if (!excludeWords.includes(paramKey)) {
+					memberParams.set(paramKey, paramValue as number)
 				}
 			}
 		}
 	}
 
-	let totalMagicDamage =
-		calculatedMemberParameters.magicDamage *
-		calculatedMemberParameters.magicDamageP
-	let totalPhysicDamage =
-		calculatedMemberParameters.physicDamage *
-		calculatedMemberParameters.physicDamageP
-	let totalPhysicDefence =
-		calculatedMemberParameters.physicDefence *
-		calculatedMemberParameters.physicDefenceP
-	let totalMagicDefence =
-		calculatedMemberParameters.magicDefence *
-		calculatedMemberParameters.magicDefenceP
-	let totalEnergyRegeneration =
-		calculatedMemberParameters.energyRegeneration *
-		calculatedMemberParameters.energyRegenerationP
+	//Calculate all params form guild buffs
+	if (guildBuffs) {
+		const guildBuffsEntries = Object.entries(guildBuffs)
 
-	const calculatedEntries = Object.entries(calculatedMemberParameters)
-
-	for (let [key, value] of calculatedEntries) {
-		if (value > 0) {
-			memberParams = { ...memberParams, [key]: value }
-		} else {
-			continue
+		for (let [guildKey, guildValue] of guildBuffsEntries) {
+			if (memberParams.get(guildKey)) {
+				const newValue: number =
+					memberParams.get(guildKey)! + (guildValue as number)
+				memberParams.set(guildKey, newValue)
+			} else {
+				memberParams.set(guildKey, guildValue)
+			}
 		}
 	}
 
-	memberParams = {
-		...memberParams,
-		magicDamage: Number(
-			(totalMagicDamage + calculatedMemberParameters.magicDamage).toFixed(0)
-		),
-		magicDefence: Number(
-			(totalMagicDefence + calculatedMemberParameters.magicDefence).toFixed(0)
-		),
-		physicDamage: Number(
-			(totalPhysicDamage + calculatedMemberParameters.physicDamage).toFixed(0)
-		),
-		physicDefence: Number(
-			(totalPhysicDefence + calculatedMemberParameters.physicDefence).toFixed(0)
-		),
-		energyRegeneration: Number(
-			(
-				totalEnergyRegeneration + calculatedMemberParameters.energyRegeneration
-			).toFixed(0)
-		),
+	const physDef: number =	memberParams.get('physicDefenceP')! * memberParams.get('physicDefence')!
+	const magDef: number = memberParams.get('magicDefenceP')! * memberParams.get('magicDefence')!
+	const physDmg: number =	memberParams.get('physicDamageP')! * memberParams.get('physicDamage')!
+	const magDmg: number = memberParams.get('magicDamageP')! * memberParams.get('magicDamage')!
+	const energyReg: number =	memberParams.get('energyRegenerationP')! * memberParams.get('energyRegeneration')!
+	const energyIncr: number = memberParams.get('energyIncreaseP')! * memberParams.get('energyIncrease')!
+	const health: number = memberParams.get('healthP')! * memberParams.get('health')!
+
+	const calculated: Partial<GameParameters> = {
+		...Object.fromEntries(memberParams),
+		physicDefence: physDef >= 0 ? Number((physDef + memberParams.get('physicDefence')!).toFixed(0)) : 0,
+		magicDefence: magDef >= 0 ? Number((magDef + memberParams.get('magicDefence')!).toFixed(0)) : 0,
+		physicDamage: physDmg >= 0 ? Number((physDmg + memberParams.get('physicDamage')!).toFixed(0)) : 0,
+		magicDamage: magDmg >= 0	? Number((magDmg + memberParams.get('magicDamage')!).toFixed(0)) : 0,
+		energyRegeneration: energyReg >= 0 ? Number((energyReg + memberParams.get('energyRegeneration')!).toFixed(0)) : 0,
+		energyIncrease: energyIncr >= 0? Number((energyIncr + memberParams.get('energyIncrease')!).toFixed(0)) : 0,
+		health: health >= 0 ? Number((health + memberParams.get('health')!).toFixed(0)) : 0,
 	}
 
-	delete memberParams.lvl
-	delete memberParams.icon
-	delete memberParams.name
-	delete memberParams.type
-	return memberParams
+	delete calculated.energyIncreaseP
+	delete calculated.energyRegenerationP
+	delete calculated.magicDamageP
+	delete calculated.magicDefenceP
+	delete calculated.physicDamageP
+	delete calculated.physicDefenceP
+	delete calculated.healthP
+
+	return calculated
 }
 
 export default calculateMemberParameters

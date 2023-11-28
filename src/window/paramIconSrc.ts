@@ -21,6 +21,17 @@ const paramIconSrc: ParamIconSrc = {
   'resilience': '/resilience.webp',
   'resistance': '/resistance.webp',
   'vampirism': '/vampirism.webp',
+  'Guild Physical Defense': '/guild-buff-physdef.webp',
+  'Guild Magic Defense': '/guild-buff-magdef.webp',
+  'Guild Health': '/guild-buff-health.webp',
+  'Guild Energy': '/guild-buff-energyincr.webp',
+  'Guild Health Regeneration': '/guild-buff-healthreg.webp',
+  'Guild Energy Regeneration': '/guild-buff-energyreg.webp',
+  "Guild's Power": '/guild-buff-power.webp',
+  "Guild's Might": '/guild-buff-critpen.webp',
+  'Guild Superiority': '/guild-buff-cooldown.webp',
+  'Guild Accuracy': '/guild-buff-accuracy.webp',
+  'Guild Indestructibility': '/guild-buff-resistance.webp'
 }
 
 export default paramIconSrc

@@ -1,7 +1,7 @@
-import style from '../scss/equipWindow.module.scss'
+import scss from '../scss/equipWindow.module.scss'
 
 import { EquipListContainerProps, FetchEqipInPosition } from '../memberEquipEditor.type'
-import { EquipInitialState } from '@/store/playerEquip/playerEquip.type'
+import { EquipInitialState } from '@/store/memberEquip/memberEquip.type'
 import { WindowContextState } from '@/store/windowContext/windowContext.type'
 import { AppDispatch, RootState } from '@/store/store'
 
@@ -15,7 +15,7 @@ import NotificationBox from '@/component/notificationBox/notificationBox.compone
 
 import useFetch from '@/hook/useFetch/useFetch.hook'
 
-import { selectEquipToCheck } from '@/store/playerEquip/playerEquip.slice'
+import { selectEquipToCheck } from '@/store/memberEquip/memberEquip.slice'
 
 const EquipWindow = ({
 	memberLVL,
@@ -29,7 +29,7 @@ const EquipWindow = ({
 	const dispatch = useDispatch<AppDispatch>()
 	const equipPosition = useLocation().search.replace('?equip-position=', '')
 
-	const { selectedEquip, playerEquip } = useSelector<RootState, EquipInitialState>(state => state.playerEquipSlice)
+	const { selectedEquip, memberEquip } = useSelector<RootState, EquipInitialState>(state => state.playerEquipSlice)
 	const { isEditMode, currentTab } = useSelector<RootState, WindowContextState>(state => state.windowContextSlice)
 
 	if (equipPosition.split(/[A-Z]/)[1]) {
@@ -62,9 +62,9 @@ const EquipWindow = ({
 				texts={error}
 			/>
 			{error.length <= 0 && (
-				<div className={(selectedEquip || isEquipWindowVisilbe) ? style.equip_list_container : `${style.equip_list_container} ${style.equip_list_hidden}`}>
+				<div className={(selectedEquip || isEquipWindowVisilbe) ? scss.equip_list_container : `${scss.equip_list_container} ${scss.equip_list_hidden}`}>
 					<button
-						className={style.equip_list_close_button}
+						className={scss.equip_list_close_button}
 						type='button'
 						onClick={closeThisWindow}>
 						&#10005;
@@ -73,7 +73,7 @@ const EquipWindow = ({
 						<EquipData
 							currentTab={currentTab}
 							isEditMode={isEditMode}
-							memberEquip={playerEquip}
+							memberEquip={memberEquip}
 							selectedEquip={selectedEquip}
 							equipPosition={equipPosition}
 							closeThisWindow={closeThisWindow}

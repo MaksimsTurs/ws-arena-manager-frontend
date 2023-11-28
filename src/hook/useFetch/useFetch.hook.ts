@@ -11,15 +11,14 @@ const useFetch = <T>(
 	const [data, setData] = useState<T | undefined>(undefined)
 	const [error, setError] = useState<string>('')
 	const [isLoading, setLoading] = useState<boolean>(true)
+
 	useEffect(() => {
 			const fetchURL = async () => {
 				setLoading(true)
 				setError('')
 
 				try {
-					const fetchJSON: T = body
-						? await Fetcher.post(URL, body)
-						: await Fetcher.get(URL)
+					const fetchJSON: T = body ? await Fetcher.post(URL, body)	: await Fetcher.get(URL)
 					setData(fetchJSON)
 				} catch (error) {
 					setError(error as string)
@@ -35,9 +34,7 @@ const useFetch = <T>(
 					setLoading(false)
 					break
 			}
-		},
-		Array.isArray(deps) ? deps : [deps]
-	)
+		}, Array.isArray(deps) ? deps : [deps])
 
 	return { data, error, isLoading }
 }

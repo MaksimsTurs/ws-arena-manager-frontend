@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client'
 
 import store from './store/store'
 
-import Window from './managerWindow/window.component'
+import Window from './window/window.component'
 
 import Fetcher from './utils/fetcher/fetcher.util'
 

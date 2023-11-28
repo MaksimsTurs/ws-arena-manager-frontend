@@ -1,0 +1,133 @@
+@import '@/style/variabel.scss';
+@import '@/style/mixin.scss';
+
+.guild_exist_data_container {
+	color: $color-eqip-params;
+	font-size: 5rem;
+	padding: 1rem 2rem;
+}
+
+.guild_editor_container {
+	padding: 1rem;
+
+	.guild_create_container {
+		@include displayFlex(normal, center);
+		margin-top: 1rem;
+
+		button {
+			background-color: $background-color-root;
+			border-radius: $border-radius-container;
+			transition: all $transition-fast-ease;
+			color: white;
+			padding: 0.75rem 2rem;
+
+			&:hover {
+				transition: all $transition-fast-ease;
+				background-color: $background-color-root-darker;
+			}
+		}
+	}
+
+	.guild_editor_basic_data {
+		display: flex;
+		margin-bottom: 1rem;
+		gap: 1rem;
+	}
+
+	.guild_editor_buff_data_container {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.35rem;
+
+		.guild_editor_buff_container {
+			@include displayFlex(center);
+			position: relative;
+			padding: 0.25rem;
+
+			&:last-child {
+				margin: 0;
+			}
+
+			&:hover .guild_buff_information_container {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			img {
+				border-radius: $border-radius-container;
+				margin-right: 1rem;
+				width: 3rem;
+				height: 3rem;
+			}
+
+			.guild_disable_container {
+				border-radius: $border-radius-container;
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(192, 192, 192, 0.05);
+
+				&:hover .guild_buff_information_container {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+
+			.guild_buff_information_container {
+				border-radius: $border-radius-container;
+				z-index: 2;
+				color: white;
+				position: absolute;
+				left: -67%;
+				top: 0;
+				opacity: 0;
+				visibility: hidden;
+				background-color: black;
+				padding: 0.25rem 1rem;
+				width: 12rem;
+
+				.guild_buff_information_name {
+					margin-bottom: 0.3rem;
+				}
+
+				div {
+					display: flex;
+
+					> p:first-child {
+						color: rgb(111, 111, 111);
+						margin-right: 0.5rem;
+					}
+
+					> p:last-child {
+						color: green;
+					}
+				}
+			}
+
+			.guild_editor_buff_body {
+				display: flex;
+				gap: 1rem;
+			}
+
+			.guild_editor_buff_lvl {
+				border-radius: $border-radius-container;
+				color: rgb(255, 170, 0);
+				border: 1px solid rgb(255, 170, 0);
+				padding: 0.5rem 1rem;
+				font-size: 1rem;
+
+				&:hover {
+					color: rgb(140, 99, 0);
+					border: 1px solid rgb(140, 99, 0);
+				}
+			}
+
+			.guild_editor_buff_lvl_selected {
+				color: rgb(140, 99, 0);
+				border: 1px solid rgb(140, 100, 0);
+			}
+		}
+	}
+}

@@ -1,4 +1,4 @@
-import { PlayerInformation } from '@/store/guild/guild.type'
+import { MemberInformation } from '@/store/guild/guild.type'
 import { GameClasses } from '../../../types/class.type'
 
 export type FetchGameClasses = {
@@ -6,5 +6,5 @@ export type FetchGameClasses = {
 }
 
 export type AddMemberFormProps = {
-	memberData?: PlayerInformation
+	memberData?: MemberInformation
 }

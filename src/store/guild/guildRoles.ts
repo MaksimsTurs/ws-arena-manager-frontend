@@ -1,8 +1,8 @@
-import challanger from './img/challanger.png'
-import heir from './img/heir.png'
-import researcher from './img/researcher.png'
-import rightHand from './img/right-hand.png'
-import ruler from './img/ruler.png'
+import challanger from './img/challanger.png?format=webp&prest=thumbnail'
+import heir from './img/heir.png?format=webp&prest=thumbnail'
+import researcher from './img/researcher.png?format=webp&prest=thumbnail'
+import rightHand from './img/right-hand.png?format=webp&prest=thumbnail'
+import ruler from './img/ruler.png?format=webp&prest=thumbnail'
 
 import { GuildRoles } from './guild.type'
 

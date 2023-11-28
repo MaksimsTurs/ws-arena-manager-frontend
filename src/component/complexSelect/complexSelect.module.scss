@@ -16,6 +16,7 @@
 	.equip_param_buff_container {
 		color: $color-eqip-params;
     font-weight: bold;
+		font-size: 0.75rem;
 		position: absolute;
 		bottom: 25%;
 		left: 0;
@@ -25,7 +26,7 @@
 	}
 
 	.equip_select_with_element {
-		width: 5.5rem;
-		height: 5.5rem;
+		width: 4.4rem;
+		height: 4.4rem;
 	}
 }

@@ -1,5 +1,6 @@
-import { PlayerEquip } from "../../guild.type"
+import { MemberEquip } from "@/store/memberEquip/memberEquip.type"
 
 export type CalculateMemberParam = {
-  memberEquip: PlayerEquip
+  memberEquip: MemberEquip
+  guildBuffs?: { [key: string]: number }
 }

@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { combineReducers } from 'redux'
 
 import guildSlice from './guild/guild.slice'
-import playerEquipSlice from './playerEquip/playerEquip.slice'
+import playerEquipSlice from './memberEquip/memberEquip.slice'
 import windowContextSlice from './windowContext/windowContext.slice'
 
 export const rootReducer = combineReducers({

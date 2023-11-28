@@ -13,7 +13,6 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@rollup/plugin-dynamic-import-vars": "^2.1.0",
 		"@types/node": "^20.9.0",
 		"@types/react-dom": "^18.2.15",
 		"cssnano": "^6.0.1",

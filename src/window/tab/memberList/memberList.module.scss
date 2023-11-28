@@ -25,21 +25,12 @@
 	}
 }
 
-.player_edit_close_button {
-	position: absolute;
-	z-index: 2;
-	right: 3%;
-	top: 2%;
-	color: white;
-	font-size: 1.5rem;
-}
-
 .member_list_container {
 	max-height: 25rem;
 	position: relative;
 
 	.member_input_container {
-		display: flex;
+		@include displayFlex(center);
 		padding: 0.5rem;
 
 		.member_search_input {
@@ -50,20 +41,19 @@
 			background-color: white;
 			flex: 1;
 		}
+
+		p {
+			margin-left: 0.5rem;
+			color: white;
+		}
 	}
 
 	.player_member_data_body {
 		@include displayFlex(center);
-		transition: all $transition-fast-ease;
 		overflow: hidden;
 		padding: 1rem;
 		color: white;
 		cursor: pointer;
-
-		&:hover {
-			transition: all $transition-fast-ease;
-			background-color: $background-color-root-light;
-		}
 
 		.player_member_class {
 			width: 2.9rem;

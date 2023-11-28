@@ -50,7 +50,7 @@ export type Sash = Pick<
 	| 'energyRegeneration'
 	| 'health'
 	| 'magicDamage'
-	| 'healtP'
+	| 'healthP'
 	| 'penetration'
 	| 'resilience'
 > &

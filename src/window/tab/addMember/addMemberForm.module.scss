@@ -31,21 +31,36 @@
 		}
 	}
 
-	.add_member_submit_container {
-		@include displayFlex(center, center);
-    margin-top: 4rem;
+	.add_member_buttons_container {
+		@include displayFlex(center, center, column);
+		flex-grow: 1;
 
-		.add_member_submit_button {
-	    background-color: $background-color-root;
+		.add_button {
 			border-radius: $border-radius-container;
 			transition: all $transition-fast-ease;
-			padding: 0.75rem 4rem;
+			padding: 0.75rem;
+			text-align: center;
+			width: 10rem;
 			color: white;
 			font-weight: 600;
+		}
+		
+		.add_member_submit_button {
+			background-color: $background-color-root;
+			margin-bottom: 1rem;
 
 			&:hover {
 				transition: all $transition-fast-ease;
 				background-color: $background-color-root-darker;
+			}
+		}
+
+		.add_member_close_button {
+	    background-color: #500;
+
+			&:hover {
+				transition: all $transition-fast-ease;
+				background-color: rgb(63, 0, 0);
 			}
 		}
 

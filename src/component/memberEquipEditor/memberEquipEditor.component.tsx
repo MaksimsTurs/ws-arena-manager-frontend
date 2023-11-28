@@ -1,4 +1,4 @@
-import style from './memberEquipEditor.module.scss'
+import scss from './memberEquipEditor.module.scss'
 
 import { MemberEquipEditorProps } from './memberEquipEditor.type'
 
@@ -25,8 +25,8 @@ const PlayerEquipEditor = ({
 	const [isEquipWindowVisilbe, setEquipWindowVisilbe] = useState<boolean>(false)
 
 	return (
-		<div className={style.equip_select_container}>
-			<div className={style.equip_select_body}>
+		<div className={scss.equip_select_container}>
+			<div className={scss.equip_select_body}>
 				<ComplexSelect
 					equipPosition='cloak'
 					backgroundIMG={memberEquip.cloak?.icon || slotCloak}
@@ -46,7 +46,7 @@ const PlayerEquipEditor = ({
 					setEquipWindowVisible={setEquipWindowVisilbe}
 				/>
 			</div>
-			<div className={style.equip_select_body_center}>
+			<div className={scss.equip_select_body_center}>
 				<ComplexSelect
 					equipPosition='weapon'
 					backgroundIMG={memberEquip.weapon?.icon || slotWeapon}
@@ -66,7 +66,7 @@ const PlayerEquipEditor = ({
 					setEquipWindowVisible={setEquipWindowVisilbe}
 				/>
 			</div>
-			<div className={style.equip_select_body_center}>
+			<div className={scss.equip_select_body_center}>
 				<ComplexSelect
 					equipPosition='sash'
 					backgroundIMG={memberEquip.sash?.icon || slotSash}
@@ -74,7 +74,7 @@ const PlayerEquipEditor = ({
 					setEquipWindowVisible={setEquipWindowVisilbe}
 				/>
 			</div>
-			<div className={style.equip_select_body}>
+			<div className={scss.equip_select_body}>
 				<ComplexSelect
 					equipPosition='leftRing'
 					backgroundIMG={memberEquip.leftRing?.icon || slotRing}

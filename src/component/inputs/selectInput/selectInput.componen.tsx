@@ -1,15 +1,11 @@
-import style from './selectInput.module.scss'
+import scss from './selectInput.module.scss'
 
 import { useEffect, useRef, useState } from 'react'
 
 import { SelectInputProps } from './selectInput.type'
 import { GameClasses } from '@/types/class.type'
 
-const SelectInput = <
-	T extends Omit<
-		GameClasses,
-		'classPlayebelRoles' | 'fractionBonuses' | 'enableEquipType'
-	>
+const SelectInput = <T extends Omit<GameClasses, 'classPlayebelRoles' | 'fractionBonuses' | 'enableEquipType'>
 >({
 	options,
 	selectedOption,
@@ -37,21 +33,17 @@ const SelectInput = <
 	}, [])
 
 	return (
-		<div className={style.select_container} ref={dropdownButtonRef}>
-			<p className={selectedOption ? style.select_title : style.select_placeholder}>{selectedOption?.className || placeholder}</p>
-			{selectedOption && <img className={style.select_icon} src={selectedOption?.classIcon} />} 
+		<div className={scss.select_container} ref={dropdownButtonRef}>
+			<p className={selectedOption ? scss.select_title : scss.select_placeholder}>{selectedOption?.className || placeholder}</p>
+			{selectedOption && <img className={scss.select_icon} src={selectedOption?.classIcon} />} 
 			<div
-				className={
-					isDropDownVisible
-						? style.select_dropdown
-						: `${style.select_dropdown} ${style.select_hidden}`
-				}
+				className={isDropDownVisible ? scss.select_dropdown : `${scss.select_dropdown} ${scss.select_hidden}`}
 				style={{ height: `(${options?.length} * 3px)`, overflow: 'auto' }}>
 				{options?.map(option => (
 					<div
 						key={option?.className}
 						onClick={() => setOption(option)}
-						className={style.select_option}>
+						className={scss.select_option}>
 						<p>{option?.className}</p>
 						<img src={option?.classIcon} alt={option?.className} />
 					</div>

@@ -12,7 +12,7 @@
 		position: relative;
 		height: fit-content;
 		width: fit-content;
-		background-color: rgba(148, 148, 148, 0.8);
+		background-color: rgba(69, 69, 69, 0.9);
 		border: 1px solid silver;
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
 			rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
@@ -25,7 +25,7 @@
 			display: flex;
 			justify-content: space-between;
 
-			.window_body_tab {
+			.window_header_tab {
 				transition: all $transition-fast-ease;
 				padding: 0.75rem;
 				width: 100%;
@@ -37,7 +37,23 @@
 				}
 			}
 
-			.window_body_tab_selected {
+			.window_body_header_disable {
+				position: relative;
+				width: 100%;
+				background-color: rgb(86, 86, 131);
+				color: silver;
+				cursor: auto;
+
+				span {
+					font-size: 1.25rem;
+					position: absolute;
+					left: 35%;
+					top: -20%;
+					transform: translate(50%, 50%);
+				}
+			}
+
+			.window_header_tab_selected {
 				transition: all $transition-fast-ease;
 				background-color: $background-color-root-darker;
 			}

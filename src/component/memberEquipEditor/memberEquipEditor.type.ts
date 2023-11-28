@@ -1,5 +1,4 @@
-import { PlayerEquip } from "@/store/guild/guild.type"
-import { SelectedEquip } from "@/store/playerEquip/playerEquip.type"
+import { SelectedEquip, MemberEquip } from "@/store/memberEquip/memberEquip.type"
 import { EquipPosition, GameParameters } from "@/types/gameParameters.type"
 import { Dispatch, SetStateAction } from "react"
 
@@ -9,7 +8,7 @@ export type FetchEqipInPosition = {
 
 export type MemberEquipEditorProps = {
 	//Used for icons
-	memberEquip: PlayerEquip
+	memberEquip: MemberEquip
 	memberLVL?: number
 	classEquipType?: string[] 
 }
@@ -26,7 +25,7 @@ export type EquipDataProps = {
 	equipPosition: EquipPosition | string
 	selectedEquip: SelectedEquip
 	currentTab: string
-	memberEquip: PlayerEquip
+	memberEquip: MemberEquip
 	isEditMode: boolean
 	closeThisWindow: () => void
 }
@@ -39,9 +38,11 @@ export type EquiListProps = {
 export type EquipParametersProps = {
 	selectedEquip: SelectedEquip
 	setChoseMode: Dispatch<SetStateAction<string>>
+	memberEquip?: MemberEquip
 }
 
 export type EquiBuffDataProps = {
 	isChoseMode: string
+	memberEquip?: MemberEquip
 	selectedEquip: SelectedEquip
 }

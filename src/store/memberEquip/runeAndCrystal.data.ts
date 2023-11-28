@@ -1,4 +1,4 @@
-import { RuneAndCrystal } from "./playerEquip.type"
+import { RuneAndCrystal } from "./memberEquip.type"
 
 const runeAndCrystal: RuneAndCrystal[] = [
 	{
@@ -22,6 +22,13 @@ const runeAndCrystal: RuneAndCrystal[] = [
 		lvl: 32,
 		buff: 90,
 	},
+	{
+		name: 'physicDefence',
+		type: 'rune',
+		equipType: ['head', 'body', 'gloves', 'boots'],
+		lvl: 31,
+		buff: 575,
+	}
 ]
 
 export default runeAndCrystal

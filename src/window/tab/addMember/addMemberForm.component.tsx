@@ -1,10 +1,11 @@
-import style from './addMemberForm.module.scss'
+import scss from './addMemberForm.module.scss'
 
 import MemberEquipEditor from '../../../component/memberEquipEditor/memberEquipEditor.component'
 import CheckBoxInput from '@/component/inputs/checkBoxInput/checkBoxInput.component'
 import TextInput from '@/component/inputs/textInput/textInput.component'
 import SelectInput from '@/component/inputs/selectInput/selectInput.componen'
 import NotificationBox from '@/component/notificationBox/notificationBox.component'
+import CheckboxContainer from '@/component/checkBoxContainer/checkboxContainer.component'
 import Loader from '@/component/loader/loader.component'
 
 import { Fragment, memo, useEffect, useState } from 'react'
@@ -13,17 +14,19 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { GameClasses, ClassRoles } from '../../../types/class.type'
 import { AppDispatch, RootState } from '@/store/store'
-import { GuildInitialState, GuildRoles, PlayerInformation } from '@/store/guild/guild.type'
-import { EquipInitialState } from '@/store/playerEquip/playerEquip.type'
+import { GuildInitialState, GuildRoles, MemberInformation } from '@/store/guild/guild.type'
+import { EquipInitialState } from '@/store/memberEquip/memberEquip.type'
 import { AddMemberFormProps, FetchGameClasses } from './addMemberForm.type'
+import { WindowContextState } from '@/store/windowContext/windowContext.type'
 
 import { addPlayerToList, changeMemberData, resetIsChanged, resetIsAdded } from '@/store/guild/guild.slice'
-import { setPlayerEquip } from '@/store/playerEquip/playerEquip.slice'
+import { changeEditMode } from '@/store/windowContext/windowContext.slice'
+import { setPlayerEquip } from '@/store/memberEquip/memberEquip.slice'
 
 import generateId from '@/utils/generateId.util'
 
 import useFetch from '@/hook/useFetch/useFetch.hook'
-import CheckboxContainer from '@/component/checkBoxContainer/checkboxContainer.component'
+
 import guildRoles from '@/store/guild/guildRoles'
 
 const MemberEquipEditorMemoized = memo(MemberEquipEditor)
@@ -46,26 +49,32 @@ const AddMemberForm = ({ memberData }: AddMemberFormProps) => {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const { playerEquip } = useSelector<RootState, EquipInitialState>(state => state.playerEquipSlice)
-	const { guildMembers, isAdded, isChanged } = useSelector<RootState, GuildInitialState>(state => state.guildSlice)
+	const { memberEquip } = useSelector<RootState, EquipInitialState>(state => state.playerEquipSlice)
+	const { currentTab, isEditMode } = useSelector<RootState, WindowContextState>(state => state.windowContextSlice)
+	const { guild, isAdded, isChanged } = useSelector<RootState, GuildInitialState>(state => state.guildSlice)
+
+	const closeEditMode = () => dispatch(changeEditMode(false))
 
 	const {
 		register,
 		handleSubmit,
 		getValues,
 		watch,
-		formState: { errors },
-	} = useForm<PlayerInformation>({ defaultValues: { level: 34 } })
+		reset,
+		formState: { errors, isSubmitted },
+	} = useForm<MemberInformation>({ defaultValues: { level: 34 } })
 
-	const submitForm: SubmitHandler<PlayerInformation> = newMemberData => {
-		const newMember: PlayerInformation = {
+	const submitForm: SubmitHandler<MemberInformation> = newMemberData => {
+		const newMember: MemberInformation = {
 			...newMemberData,
 			id: memberData ? memberData.id : generateId(),
 			role: selectedClassRole!,
 			guildRole: selectedGuildRole!,
 			class: selectedClass!,
-			equip: playerEquip,
+			equip: memberEquip,
 		}
+
+		if (!selectedClass) return
 
 		if (memberData) {
 			dispatch(changeMemberData(newMember))
@@ -77,57 +86,60 @@ const AddMemberForm = ({ memberData }: AddMemberFormProps) => {
 	}
 
 	const validateName = (_str: string) => {
-		let isOwned = false
-		const memberName = getValues('name')
+		let isOwned: boolean = false
+		const memberName: string = getValues('name')
 
-		guildMembers.forEach(member =>
-			member.name === memberName ? (isOwned = true) : (isOwned = false)
-		)
+		guild?.guildMembers.forEach(member =>	member.name === memberName ? (isOwned = true) : (isOwned = false))
 
-		if (memberName.length === 0 || isOwned)
-			return 'Name is to short or is owned!'
+		if (memberName.length === 0 || isOwned)	return 'Name is to short or is owned!'
 	}
 
 	useEffect(() => {
 		if (data) setClassOption(data.gameClasses)
-		if (memberData) dispatch(setPlayerEquip(memberData.equip))
-	}, [isLoading, memberData])
+		if (memberData && currentTab === 'Guild List!') {
+			dispatch(setPlayerEquip(memberData.equip))
+		} else {
+			dispatch(setPlayerEquip({}))
+			setClass(undefined)
+			setClassRole(undefined)
+			setGuildRole(undefined)
+			reset()
+		}
+	}, [isLoading, isAdded, memberData])
 
 	useEffect(() => {
 		setClassRole(selectedClass?.classPlayebelRoles[0])
 	}, [selectedClass])
 
+	const isNotificationsVisibleSucces: boolean = isAdded || isChanged
+	const isNotificationsVisibleError: boolean = Boolean(errors['name']) || (isSubmitted && !selectedClass)
+
 	return (
 		<Fragment>
 			<NotificationBox
-				isVisible={errors['name'] ? true : false}
-				texts={errors['name']?.message}
 				type='error'
+				isVisible={isNotificationsVisibleError}
+				texts={[errors.name?.message!, 'You need to select Class!']}
 			/>
 			<NotificationBox
-				isVisible={isAdded}
-				texts={'Successfuly added!'}
 				type='succes'
-			/>
-			<NotificationBox
-				isVisible={isChanged}
-				texts={'Successfuly changed!'}
-				type='succes'
+				isVisible={isNotificationsVisibleSucces}
+				texts={['Successfuly added!', 'Successfuly changed!']}
 			/>
 			<form
-				className={style.add_member_form}
+				className={scss.add_member_form}
 				onSubmit={handleSubmit(submitForm)}>
 				{isLoading ? (
 					<Loader />
 				) : (
 					<Fragment>
-						<div className={style.add_member_inputs_container}>
-							<div className={style.add_member_inputs_body}>
-								<header className={style.add_member_header}>
+						<div className={scss.add_member_inputs_container}>
+							<div className={scss.add_member_inputs_body}>
+								<header className={scss.add_member_header}>
 									<h3> Member Information</h3>
 								</header>
 								<div style={{ margin: '0.5rem 0rem' }}>
-									<TextInput<PlayerInformation>
+									<TextInput<MemberInformation>
 										inputLabel='Member Name:'
 										inputName='name'
 										placeholder='Name must be unique and bigger then 0 letters!'
@@ -164,8 +176,8 @@ const AddMemberForm = ({ memberData }: AddMemberFormProps) => {
 									</CheckboxContainer>
 								</div>
 							</div>
-							<div className={style.add_member_inputs_body}>
-								<header className={style.add_member_header}>
+							<div className={scss.add_member_inputs_body}>
+								<header className={scss.add_member_header}>
 									<h3>Class Information</h3>
 								</header>
 								<div style={{ margin: '0.5rem 0rem' }}>
@@ -189,7 +201,7 @@ const AddMemberForm = ({ memberData }: AddMemberFormProps) => {
 									</CheckboxContainer>
 								</div>
 								<div style={{ margin: '0.5rem 0rem' }}>
-									<TextInput<PlayerInformation>
+									<TextInput<MemberInformation>
 										type='number'
 										inputName='level'
 										inputLabel='LvL:'
@@ -201,27 +213,37 @@ const AddMemberForm = ({ memberData }: AddMemberFormProps) => {
 								</div>
 							</div>
 						</div>
-						<div className={style.add_member_inputs_container}>
-							<div className={style.add_member_inputs_body}>
-								<header className={style.add_member_header}>
+						<div
+							style={{ display: 'flex', flexDirection: 'column' }}
+							className={scss.add_member_inputs_container}>
+							<div className={scss.add_member_inputs_body}>
+								<header className={scss.add_member_header}>
 									<h3>Hero Equip</h3>
 								</header>
 								<MemberEquipEditorMemoized
 									classEquipType={selectedClass?.enableEquipType}
 									memberLVL={watch('level')}
-									memberEquip={playerEquip}
+									memberEquip={memberEquip}
 								/>
 							</div>
-							<div className={style.add_member_submit_container}>
-						  	<button 
-								  className={
-									  (isAdded || isChanged || isLoading) 
-									  ? `${style.add_member_submitet_button} ${style.add_member_submit_button}`
-									  : style.add_member_submit_button
-								 } 
-								 type='submit'>
-								   {(isAdded || isChanged || isLoading) ? 'Submitet' : 'Submit'}
+							<div className={scss.add_member_buttons_container}>
+								<button
+									className={
+										isAdded || isChanged || isLoading
+											? `${scss.add_button} ${scss.add_member_submitet_button} ${scss.add_member_submit_button}`
+											: `${scss.add_button} ${scss.add_member_submit_button}`
+									}
+									type='submit'>
+									{isAdded || isChanged || isLoading ? 'Submitet' : 'Submit'}
 								</button>
+								{memberData || isEditMode ? (
+									<button
+										className={`${scss.add_button} ${scss.add_member_close_button}`}
+										onClick={closeEditMode}
+										type='button'>
+										Back
+									</button>
+								) : null}
 							</div>
 						</div>
 					</Fragment>

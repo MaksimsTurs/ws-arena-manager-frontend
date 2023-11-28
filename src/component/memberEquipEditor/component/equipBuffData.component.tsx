@@ -1,35 +1,37 @@
-import style from '../scss/equipBuffData.module.scss'
+import scss from '../scss/equipBuffData.module.scss'
 
 import { EquiBuffDataProps } from '../memberEquipEditor.type'
 import { AppDispatch } from '@/store/store'
 
 import { useDispatch } from 'react-redux'
 
-import { buffEquipWith } from '@/store/playerEquip/playerEquip.slice'
+import { buffEquipWith } from '@/store/memberEquip/memberEquip.slice'
 
 import handlePercentageParams from '@/utils/handlePercentageParams.util'
 import createEquipName from '@/utils/createEquipName.util'
 import firstLetterToUpperCase from '@/utils/firstLetterToUpperCase.util'
 
-import runeAndCrystal from '@/store/playerEquip/runeAndCrystal.data'
+import runeAndCrystal from '@/store/memberEquip/runeAndCrystal.data'
 
-import paramIconSrc from '@/managerWindow/paramIconSrc'
+import paramIconSrc from '@/window/paramIconSrc'
 
 const EquipBuffData = ({
 	isChoseMode,
 	selectedEquip,
+	memberEquip
 }: EquiBuffDataProps) => {
 	const dispatch = useDispatch<AppDispatch>()
 
 	return (
-		<div className={isChoseMode.length > 0	? style.buff_data_container : `${style.buff_container} ${style.buff_container_hidden}`}>
+		<div className={isChoseMode.length > 0	? scss.buff_data_container : `${scss.buff_container} ${scss.buff_container_hidden}`}>
 			{isChoseMode.length <= 0 ? null : (
-				<p className={style.buff_current_buff_type}>{firstLetterToUpperCase(isChoseMode)}s</p>
+				<p className={scss.buff_current_buff_type}>{firstLetterToUpperCase(isChoseMode)}s</p>
 			)}
 			{[...runeAndCrystal]
 				.filter(
 					buff =>
 						buff.type === isChoseMode &&
+						buff.equipType.includes(selectedEquip?.position || '') ||
 						buff.equipType.includes(selectedEquip?.type || '')
 				)
 				.map(buff => {
@@ -49,15 +51,17 @@ const EquipBuffData = ({
 							key={Math.random() * 2023}
 							onClick={() => dispatch(buffEquipWith(buff))}
 							className={
-								buffName === Object.keys(selectedEquip?.rune || {})[0]
-									? `${style.buff_body} ${style.buff_selected}`
-									: buffName === Object.keys(selectedEquip?.crystal || {})[0]
-									? `${style.buff_body} ${style.buff_selected}`
-									: style.buff_body
+								//@ts-ignore
+								buffName === Object.keys(memberEquip[selectedEquip?.position]?.['rune'] || selectedEquip?.rune || {})[0]
+									? `${scss.buff_body} ${scss.buff_selected}`
+									//@ts-ignore
+									: buffName === Object.keys(memberEquip[selectedEquip?.position]?.['crystal'] || selectedEquip?.crystal || {})[0]
+									? `${scss.buff_body} ${scss.buff_selected}`
+									: scss.buff_body
 							}>
 							{paramIcon && <img src={paramIcon}/>}
-							<p className={style.buff_title}>{firstLetterToUpperCase(createEquipName(buffName))}:</p>
-							<p className={style.buff_buff}>{handlePercentageParams(buff.buff)}</p>
+							<p className={scss.buff_title}>{firstLetterToUpperCase(createEquipName(buffName))}:</p>
+							<p className={scss.buff_buff}>{handlePercentageParams(buff.name, buff.buff)}</p>
 						</div>
 					) : null
 				})}
